@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediConnect - Encuentra y reserva citas médicas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        
+        .header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #3498db;
+        }
+        
+        .logo span {
+            color: #2c3e50;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 25px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #3498db;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .search-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .search-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .search-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            text-align: left;
+        }
+        
+        .search-group input,
+        .search-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .search-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 24px;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        
+        .search-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .features {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 32px;
+            color: #2c3e50;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .specialists {
+            padding: 80px 0;
+            background-color: #f5f7fa;
+        }
+        
+        .specialists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .specialist-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .specialist-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .specialist-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: #3498db;
+        }
+        
+        .specialist-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .specialist-card p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .testimonials {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .testimonials-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 30px;
+            padding: 20px 0;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .testimonials-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .testimonial-card {
+            background-color: #f5f7fa;
+            border-radius: 10px;
+            padding: 30px;
+            min-width: 300px;
+            flex: 0 0 auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin-right: 15px;
+            overflow: hidden;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        
+        .author-info p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .how-it-works {
+            padding: 80px 0;
+            background-color: #f5f7fa;
+        }
+        
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 50px;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 0 20px;
+            margin-bottom: 30px;
+        }
+        
+        .step-number {
+            background-color: #3498db;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        
+        .step h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .cta {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .cta-btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 500;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .primary-btn {
+            background-color: white;
+            color: #3498db;
+        }
+        
+        .primary-btn:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .secondary-btn {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        
+        .secondary-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #3498db;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: #3498db;
+        }
+        
+        .copyright {
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            color: #bdc3c7;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .nav-links li {
+                margin: 5px 10px;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .search-form {
+                flex-direction: column;
+            }
+            
+            .steps {
+                flex-direction: column;
+            }
+            
+            .step {
+                margin-bottom: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">Medi<span>Connect</span></div>
+                <ul class="nav-links">
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Especialistas</a></li>
+                    <li><a href="#">Clínicas</a></li>
+                    <li><a href="#">Servicios</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+                <div>
+                    <button class="btn">Iniciar sesión</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Encuentra al mejor especialista médico</h1>
+            <p>Reserva citas médicas con los mejores profesionales de la salud en tu zona de manera rápida y sencilla.</p>
+            
+            <div class="search-container">
+                <form class="search-form">
+                    <div class="search-group">
+                        <label for="specialty">Especialidad</label>
+                        <select id="specialty" name="specialty">
+                            <option value="">Selecciona una especialidad</option>
+                            <option value="general">Medicina General</option>
+                            <option value="cardiology">Cardiología</option>
+                            <option value="dermatology">Dermatología</option>
+                            <option value="gynecology">Ginecología</option>
+                            <option value="pediatrics">Pediatría</option>
+                            <option value="psychology">Psicología</option>
+                            <option value="dentistry">Odontología</option>
+                        </select>
+                    </div>
+                    
+                    <div class="search-group">
+                        <label for="location">Ciudad</label>
+                        <select id="location" name="location">
+                            <option value="">Selecciona una ciudad</option>
+                            <option value="cdmx">Ciudad de México</option>
+                            <option value="guadalajara">Guadalajara</option>
+                            <option value="monterrey">Monterrey</option>
+                            <option value="puebla">Puebla</option>
+                            <option value="tijuana">Tijuana</option>
+                        </select>
+                    </div>
+                    
+                    <div class="search-group">
+                        <label for="insurance">Seguro médico (opcional)</label>
+                        <select id="insurance" name="insurance">
+                            <option value="">Selecciona un seguro</option>
+                            <option value="imss">IMSS</option>
+                            <option value="issste">ISSSTE</option>
+                            <option value="gnp">GNP</option>
+                            <option value="metlife">MetLife</option>
+                            <option value="axa">AXA</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="search-btn">Buscar especialistas</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">¿Por qué elegir MediConnect?</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📋</div>
+                    <h3>Agenda en línea</h3>
+                    <p>Reserva citas médicas 24/7 sin necesidad de llamadas telefónicas.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⭐</div>
+                    <h3>Médicos verificados</h3>
+                    <p>Todos nuestros especialistas han sido verificados y cuentan con las credenciales necesarias.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>Opiniones reales</h3>
+                    <p>Lee las opiniones de otros pacientes antes de elegir a tu especialista.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Búsqueda avanzada</h3>
+                    <p>Filtra por especialidad, ubicación, seguro médico y disponibilidad.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🏥</div>
+                    <h3>Consultas presenciales y online</h3>
+                    <p>Elige entre consultas presenciales o videoconsultas según tus necesidades.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Recordatorios automáticos</h3>
+                    <p>Recibe recordatorios de tus citas por correo electrónico o SMS.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="specialists">
+        <div class="container">
+            <h2 class="section-title">Especialidades médicas</h2>
+            
+            <div class="specialists-grid">
+                <div class="specialist-card">
+                    <div class="specialist-icon">❤️</div>
+                    <h3>Cardiología</h3>
+                    <p>Especialistas en el corazón y sistema cardiovascular</p>
+                </div>
+                
+                <div class="specialist-card">
+                    <div class="specialist-icon">🦷</div>
+                    <h3>Odontología</h3>
+                    <p>Cuidado dental y salud bucal</p>
+                </div>
+                
+                <div class="specialist-card">
+                    <div class="specialist-icon">🧠</div>
+                    <h3>Neurología</h3>
+                    <p>Especialistas en sistema nervioso</p>
+                </div>
+                
+                <div class="specialist-card">
+                    <div class="specialist-icon">👁️</div>
+                    <h3>Oftalmología</h3>
+                    <p>Salud visual y ocular</p>
+                </div>
+                
+                <div class="specialist-card">
+                    <div class="specialist-icon">🦴</div>
+                    <h3>Traumatología</h3>
+                    <p>Especialistas en huesos y articulaciones</p>
+                </div>
+                
+                <div class="specialist-card">
+                    <div class="specialist-icon">👶</div>
+                    <h3>Pediatría</h3>
+                    <p>Cuidado de la salud infantil</p>
+                </div>
+                
+                <div class="specialist-card">
+                    <div class="specialist-icon">🧬</div>
+                    <h3>Genética</h3>
+                    <p>Diagnóstico y tratamiento de enfermedades genéticas</p>
+                </div>
+                
+                <div class="specialist-card">
+                    <div class="specialist-icon">🤰</div>
+                    <h3>Ginecología</h3>
+                    <p>Salud femenina y reproductiva</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Lo que dicen nuestros usuarios</h2>
+            
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Gracias a MediConnect pude encontrar un especialista disponible el mismo día. La plataforma es muy fácil de usar y el servicio excelente."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="/api/placeholder/50/50" alt="Foto de perfil">
+                        </div>
+                        <div class="author-info">
+                            <h4>Ana García</h4>
+                            <p>Paciente verificada</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Como médico, MediConnect me ha ayudado a organizar mejor mi agenda y a conectar con nuevos pacientes. Una plataforma realmente útil para ambas partes."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="/api/placeholder/50/50" alt="Foto de perfil">
+                        </div>
+                        <div class="author-info">
+                            <h4>Dr. Miguel Hernández</h4>
+                            <p>Cardiólogo</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Encontrar un especialista que aceptara mi seguro médico siempre era complicado, hasta que descubrí MediConnect. Ahora es cuestión de minutos."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="/api/placeholder/50/50" alt="Foto de perfil">
+                        </div>
+                        <div class="author-info">
+                            <h4>Carlos Méndez</h4>
+                            <p>Paciente verificado</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Las videoconsultas han sido una gran solución para mi familia. Puedo consultar con especialistas sin tener que desplazarme, ahorrando tiempo y dinero."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="/api/placeholder/50/50" alt="Foto de perfil">
+                        </div>
+                        <div class="author-info">
+                            <h4>Laura Torres</h4>
+                            <p>Paciente verificada</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">¿Cómo funciona?</h2>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Busca</h3>
+                    <p>Encuentra el especialista adecuado filtrando por especialidad, ubicación y seguro médico.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Compara</h3>
+                    <p>Lee opiniones, verifica disponibilidad y compara precios para elegir al profesional más adecuado.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Reserva</h3>
+                    <p>Agenda tu cita en línea seleccionando la fecha y hora que mejor te convenga.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Asiste</h3>
+                    <p>Acude a tu cita presencial o conéctate para tu videoconsulta a la hora programada.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Comienza a cuidar tu salud hoy mismo</h2>
+            <p>Encuentra al especialista adecuado para ti y programa tu cita médica en minutos.</p>
+            
+            <div class="cta-buttons">
+                <button class="cta-btn primary-btn">Buscar especialistas</button>
+                <button class="cta-btn secondary-btn">Soy profesional de la salud</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>MediConnect</h3>
+                    <p>Conectamos pacientes con los mejores profesionales de la salud para brindar una atención médica de calidad y accesible para todos.</p>
+                    
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">f</a>
+                        <a href="#" class="social-icon">t</a>
+                        <a href="#" class="social-icon">in</a>
+                        <a href="#" class="social-icon">ig</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Pacientes</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Buscar especialistas</a></li>
+                        <li><a href="#">Consultas online</a></li>
+                        <li><a href="#">Preguntas frecuentes</a></li>
+                        <li><a href="#">Guía de uso</a></li>
+                        <li><a href="#">Opiniones</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Profesionales</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Únete a MediConnect</a></li>
+                        <li><a href="#">Centro de ayuda</a></li>
+                        <li><a href="#">Planes y precios</a></li>
+                        <li><a href="#">Recursos médicos</a></li>
+                        <li><a href="#">Blog profesional</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Empresa</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Sobre nosotros</a></li>
+                        <li><a href="#">Prensa</a></li>
+                        <li><a href="#">Trabaja con nosotros</a></li>
+                        <li><a href="#">Términos y condiciones</a></li>
+                        <li><a href="#">Política de privacidad</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 MediConnect. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
